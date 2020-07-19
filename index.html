@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ 
+ 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+ 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script>
+        function preventFormSubmit() {
+            var forms = document.querySelectorAll('form');
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].addEventListener('submit', function(event) {
+                    event.preventDefault();
+                });
+            }
+        }
+        window.addEventListener('load', preventFormSubmit);
+ 
+ 
+        function handleFormSubmit(formObject) {
+   
+          
+          google.script.run.withSuccessHandler(readyf).processForm(formObject);
+          document.getElementById("log").reset();
+       //   alert("Данные отправлены!");
+        };
+        function readyf(loaddata) {
+            var div = document.getElementById('output');
+            div.innerHTML=loaddata;
+        };
+    </script>
+</head>
+
+<body>
+<div style="overflow:auto">
+<div class="main">
+<h2>А-ля буффер обмена </h2>
+<table id='output'></table>
+<form   id="log" onsubmit="handleFormSubmit(this)">
+ 
+<input type="text" id="uspeh1" name="uspeh1"  size="50" value="">
+<!--<button type="button" onclick="addUspeh()">Добавить</button>-->
+  <input type="submit" value="Записать">
+</form> 
+
+
+
+<script>
+function stopRKey(evt) { 
+  var evt = (evt) ? evt : ((event) ? event : null); 
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+  if ((evt.keyCode == 13) && (node.type=="text"))  
+  {addUspeh();
+  return false;} 
+} 
+
+//document.onkeypress = stopRKey; 
+
+ 
+//document.getElementById('userdate').value = date ; 
+
+function delrow(rowno){
+google.script.run.withSuccessHandler(readyf).delrow(rowno); 
+
+}
+google.script.run.withSuccessHandler(readyf).loaddata();  
+</script>
+ 
+</div>
+</div>
+
+
+</body>
+
+</html>
